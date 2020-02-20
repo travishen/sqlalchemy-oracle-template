@@ -1,0 +1,26 @@
+version: '3.4'
+
+volumes:
+    db_data: {}
+
+services:
+  db:
+    container_name: oracle-db
+    image: store/oracle/database-enterprise:12.2.0.1-slim
+    volumes:
+      - db_data:/opt/oracle/oradata
+    ports:
+      - 1521:1521
+      - 5500:5500
+
+  app:
+    container_name: app
+    image: app
+    build:
+      context: ./src
+    volumes:
+      - ./src:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
