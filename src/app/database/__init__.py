@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base, DeferredReflection
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 from .. import settings
 
-_base = declarative_base(cls=DeferredReflection)
+_base = declarative_base()
 _engines = dict()
 _sessions = dict()
 
@@ -36,7 +36,7 @@ for db, settings in settings.DATABASES.items():
         extra_config['max_identifier_length'] = 128
 
     engine = create_engine(connection_string, **extra_config)
-    session = sessionmaker()
+    session = scoped_session(sessionmaker())
     session.configure(bind=engine)
     _engines[db] = engine
     _sessions[db] = session

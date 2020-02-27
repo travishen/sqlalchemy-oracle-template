@@ -46,6 +46,13 @@ The configurations file is `settings.py` at package folder.
 >>>     # Do your ORM stuff with session here!
 ```
 
+## Test
+
+Run pytest command in the container:
+```
+pytest -s
+```
+
 ## Command line tools
 
 The interface is `manage.py` at project folder. 
@@ -62,7 +69,7 @@ Make sure you attach the python container before executing them.
 * Describe a table:
 
     ```
-    >>> python manage.py describe --table=example
+    >>> python manage.py describe --table=person
     {
         "columns": [
             {
@@ -74,8 +81,16 @@ Make sure you attach the python container before executing them.
                 "comment": null
             },
             {
-                "name": "name",
-                "type": "VARCHAR(5)",
+                "name": "english_name",
+                "type": "VARCHAR(120)",
+                "nullable": true,
+                "default": null,
+                "autoincrement": "auto",
+                "comment": null
+            },
+            {
+                "name": "chinese_name",
+                "type": "VARCHAR(120)",
                 "nullable": true,
                 "default": null,
                 "autoincrement": "auto",
@@ -89,7 +104,7 @@ Make sure you attach the python container before executing them.
             "constrained_columns": [
                 "id"
             ],
-            "name": "sys_c0011656"
+            "name": "sys_c0011644"
         },
         "primary_keys": [
             "id"
